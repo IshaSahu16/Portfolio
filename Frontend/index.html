@@ -4,10 +4,116 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Isha Sahu</title>
+    <style>
+      .star {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background-color: yellow;
+        clip-path: polygon(
+          50% 0%, 
+          61% 35%, 
+          98% 35%, 
+          68% 57%, 
+          79% 91%, 
+          50% 70%, 
+          21% 91%, 
+          32% 57%, 
+          2% 35%, 
+          39% 35%
+        );
+        pointer-events: none;
+        transition: transform 0.1s, opacity 0.1s;
+      }
+    </style>
   </head>
   <body>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      const coords = { x: 0, y: 0 };
+      const stars = document.querySelectorAll(".star");
+
+      const colors = [
+        "#ffb56b",
+        "#fdaf69",
+        "#f89d63",
+        "#f59761",
+        "#ef865e",
+        "#ec805d",
+        "#e36e5c",
+        "#df685c",
+        "#d5585c",
+        "#d1525c",
+        "#c5415d",
+        "#c03b5d",
+        "#b22c5e",
+        "#ac265e",
+        "#9c155f",
+        "#950f5f",
+        "#830060",
+        "#7c0060",
+        "#680060",
+        "#60005f",
+        "#48005f",
+        "#3d005e"
+      ];
+
+      stars.forEach(function (star, index) {
+        star.x = 0;
+        star.y = 0;
+        star.style.backgroundColor = colors[index % colors.length];
+      });
+
+      window.addEventListener("mousemove", function(e){
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+      });
+
+      function animateStars() {
+        let x = coords.x;
+        let y = coords.y;
+
+        stars.forEach(function (star, index) {
+          star.style.left = x - 12 + "px";
+          star.style.top = y - 12 + "px";
+          
+          star.style.transform = `scale(${(stars.length - index) / stars.length})`;
+          star.style.opacity = (stars.length - index) / stars.length;
+
+          star.x = x;
+          star.y = y;
+
+          const nextStar = stars[index + 1] || stars[0];
+          x += (nextStar.x - x) * 0.6;
+          y += (nextStar.y - y) * 0.6;
+        });
+
+        requestAnimationFrame(animateStars);
+      }
+
+      animateStars();
+    </script>
   </body>
 </html>
